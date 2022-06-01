@@ -1,0 +1,42 @@
+mvn package : this is used to pack stand alone java application.
+mvn clean package: this is used to delete jar file from target folder & create new jar in that folder.
+mvn test
+mvn surefire-report:report: this is used to test code and generate the report.
+mvn surefire-report:report-only: this will generate only report test cases will not run on the command prompt.
+mvn site: it will generate the project realted total documentation. This command is not work in latest version use maven 3.3.9
+mvn install: jar file created it also keeps jar in the local repository
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NOTE:: There is no command to run the application directly in maven.
+
+Maven Life Cycle: 
+    (a). clean(3 phases):
+    (b) default(23 phases):
+    (c) site(4 phases):
+Each life cycle of the maven will have lots of phases. These phases are already linked with plugins to perform certain operation. But we can configure extra plugins to perform each more operations.
+
+Test cases is a Test plan where expected results will be compared with actual results. We will write more test cases in all possible ways to test the code.
+
+In real time execution based testing will not be done.we do more unit testing based code verification.
+
+Developing Maven Project in Non-Interactive Mode:
+    mvn archetype:generate -DgroupId=nit -DartifactId=MathProj2 -DarchetypeArtifactId=maven-archetype-quickstart -Dversion=1.0 -Dpackage=com.nt.source -DinteractiveMode=false "Press Enter".
+
+Maven cannot execute java application because there is no lifecycle phase for that. To make it happen we need to configure 3rd party supplied maven plugin with existings phases of maven like with "test"
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Dependency Management:
+    -> Adding jar files from repository by collecting them from repository. We can get jar related Dependency tags from mvnrepository.com(it is not maven centeral repository web site. It is just website offering tags.)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To convert maven project into Eclipse project we can use:
+    mvn eclipse:eclipse: this command will add eclipse realated .classpath, .project files so we can open project through eclipse.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Developing maven web application in CLI mode:
+    maven-archetype-webapp 
+    mvn archetype:generate -DgroupId=webapplicationexample -DartifactId=WishApp -DarchetypeArtifactId=maven-archetype-webapp -Dversion=1.0 -Dpackage=com.nt.servlet -DinteractiveMode=false -D packing=war "Press Enter".
+
+    after coding fire mvn package command it will create war file and deployment directory structure.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-
