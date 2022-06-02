@@ -5,6 +5,7 @@ mvn surefire-report:report: this is used to test code and generate the report.
 mvn surefire-report:report-only: this will generate only report test cases will not run on the command prompt.
 mvn site: it will generate the project realted total documentation. This command is not work in latest version use maven 3.3.9
 mvn install: jar file created it also keeps jar in the local repository
+to install jar in local: mvn install:install-file -Dfile-="jar file path in our system" -DgroupId=nit -DartifactId=nitoracle -Dversio=11.2 -Dpackaging=jar
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 NOTE:: There is no command to run the application directly in maven.
@@ -38,5 +39,3 @@ Developing maven web application in CLI mode:
 
     after coding fire mvn package command it will create war file and deployment directory structure.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
--
