@@ -1,0 +1,103 @@
+What is Logging?
+    The process of keeping track of application flow is called logging.
+    Using logging generated log msgs we can find out the application execution on given date and time.
+    Logging keeptracks of the component and code that are invlolve in application execution.
+
+-> Use case of Logging:
+    -> while performing unit testing, if the test result is negative we need to debugg the code to know the reason in that process log msges are usefull.
+
+    -> While fixing the bugs given by testers. the developers needs to know the state of the application execution that need the support of log messages.
+
+    -> After releasing projects. we gets production bugs from client organization end users to onsite team.. the offshore team members uses the log4j log messages to know the state of execution when bug was raised through log messages.
+
+    -> While maintaining project that are there in production environment. if the project is down all of sudden then the maintaince teams exception realted special log file to know the reason and fix the problem.
+
+    -> While taking backup of DB s/w and bringing DB s/w back after crash. we take support of log message.
+    -> While performing transcation management we need log messages support.
+
+-> SLF4J: Simple Logging Facade for Java it is not simple logging api. It provide abstraction on multiple loggging api/tools/framework and provide unified api for logging by internally using our choice logging api.
+
+-> Log4J allows us to categorize log messages and we can prorites for log messages
+    DEBUG << INFO << WARN << ERROR << FATAL
+    --> Use DEBUG level for normal confirmation code flow statement of code flow like main(-) method start, main method end etc.
+    --> Use INFO level for important code confirmation code flow statements of code flow eg: connection established with database software, Logging is sucessfull, Token is accessed.
+    --> Use WARN level to write log messages for the code that should not be executed but executed. Especially usefull when the programmer uses deperecated apis/poor apis on temporary basis.
+    --> Use ERROR level to write log messages from non exceptions catch block like (SqlException sq)
+    --> Use FATAL level to write log messages from unknow exception realted catch block like: catch(Exception e) or catch(Thrwoable e).
+
+-> In testing environment what is the difference between bugs and issue?
+    --> Bugs is code is there but excpted functionality is not comming(Wrong logic). issue means the functionality/feature itself missing.
+
+-> What is difference between bug and error?
+    --> Bugs mean wrong logic even wrong results without exceptions without throwing exceptions(no abnormal termination of application execution).
+    --> Error/failure: Wrong logics throwing exceptions and stopping the application execution.
+
+-> Log4J allows to write/record log messages to differenct destination like console, files,DB etc.
+-> Allows us to format log messages using different layers.
+-> Allows to reterive log messages by applying filters:
+    --->All<DEBUG<INFO<WARN<ERROR<FATAL<OFF. If the logger level to reterive log message is INFO then we get all log --->message priority level is INFO and higher then (INFO,WARN,ERROR,FATAL) messages
+    --->If the level to reterive log message is all then we get all log message
+    --->If the level to reterive log messages is off then loggin is disable in our application.
+
+    NOTE:: in realtime for every two log file will be maintained:
+            (A) Common log file(record all log message end to end)
+            (B) Exception log file(record only ERROR, FATAL level log messages) useful when project is down.
+-> can change the inputs of the App related Log4J either using properties files or xml file.
+-> Log4J can write log messages in file in parellel process.
+-> Log4J is industry standard.
+---------------------------------------------------------------------------------------------------------------------
+
+3 important objects of Log4J programming:
+    (A) Logger
+    (B) Appender
+    (C) Layout
+
+-> Logger Object:: enable logging on the given java class.
+    --> Creating object: Logger logger = Logger.getLogger("current java class");
+    --> Useful to generate log messages from the application having different priority levels.
+    --> EG: logger.debug("...."), logger.info("...."),logger.warn("..."), logger.info("...."),
+    --> Allows to specify logger level to reterive the log message. EG: logger.setLevel(Level.DEBUG)
+-> Both Appender object, Layout object will be added to Logger obj directly or indirectly.
+-> Instructions/Inputs to logger object can be hardcoded or can be given using properties file or xml file.
+
+-------------------------------------------------------------------------------------------------------------------
+
+Appender Object: 
+    --> Specify the destination where to record the log messages.
+    --> eg:: FileAppender, RollingFileAppender, DailyRoolingFileAppender, JDBCAppender, IMAPAppender and etc..
+    --> RollingFileAppender:: It will create backup file when max file limit reached to max. max size is 30KB
+-------------------------------------------------------------------------------------------------------------------
+
+Layout Object:
+    --> Given format log message before giving appender for recording.
+    --> EG: SimpleLayout, HtmlLayout, XmlLayout, PatternLayout(allows to customized log messages containt) etc..
+    
+-> All Appender classes extends from org.log4j.Appender(C)
+-> All Layout classes extends from org.log4j.Layout()
+
+---------------------------------------------------------------------------------------------------------------------
+
+Procedure to develop log4j app in eclipse ide: Using ConsoleAppender and SimpleLayout
+    1--> download log4j-1.2.7 jar file from maven repository.
+    2--> Create java project in eclipse ide and add the above jar file into it.
+    configuration: private static Logger logger = Logger.getLogger(currentclass.class);
+    static{
+        // create Layout object
+        SimpleLayout layout = new ConsoleAppender();
+        //create console appender object
+        ConsoleAppender appender = new ConsoleAppender(layout);
+        // add appender to logger object
+        logger.addAppender(appender);
+        // set logger level to reterive log msgs
+        logger.setLevel(Level.DEBUG)
+    }
+NOTE:: If no Logger level is specified to reterive the log messages than default logger level is :: "DEBUG"
+---------------------------------------------------------------------------------------------------------------------
+
+Instead of hardcoding Log4J setup details in java file, we can pass then to log4j setup either from properties file or from XML file.
+    -> Using properties file:
+        --> any <fileName>.properties can be taken in any location.
+        --> keys are fixed and values can be taken accroding to applications requirement.
+        --> keys can be gathered from Log4j documantaion.
+        --> Compare to XML file industry perefer using properties file.
+        --> To load properties file and to activate log4j setup we need to use PropertyConfigurator.configure() method
